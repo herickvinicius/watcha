@@ -1,6 +1,5 @@
 const mongoose = require('../database')
 const bcrypt = require('bcryptjs')
-const profiles = require('./profile')
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -20,8 +19,10 @@ const UserSchema = new mongoose.Schema({
     },
     dateOfBirth: {
         type: Date
+    },
+    profiles: {
+        type: [String]
     }
-    //profiles: [profile]
 })
 
 UserSchema.pre('save', async function(next) {
