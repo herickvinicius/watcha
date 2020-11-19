@@ -53,7 +53,7 @@ router.post('/authenticate', async (req, res) => {
 
     // Se não encontrar, retorna erro.
     if(!user)
-        return res.status(400).send({ error: 'User not found' })
+        return res.status(404).send({ error: 'User not found' })
     
     // Se a senha fornecida pelo user não for válida, retorna erro.
     if(!await bcrypt.compare(password, user.password))
