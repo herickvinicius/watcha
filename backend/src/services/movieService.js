@@ -13,14 +13,13 @@ router.get('/popular', async(req, res) => {
         const { data } = await axios(`${tmdb.API_ROOT}movie/popular?api_key=${tmdb.API_KEY}&page=${page}`)
         return res.json(data)
     } catch (error) {
-        console.error(error)
+        console.error(error.message)
         return res.status(503).send({ error: error.message })
     }
 })
 
 router.get('/search', async(req, res) => {
     const { terms } = req.query
-    console.log(terms)
     try {
         const { data } = await axios(`${tmdb.API_ROOT}search/movie?api_key=${tmdb.API_KEY}&query=${terms}`)
         return res.json(data)
@@ -36,7 +35,7 @@ router.get('/:id', async(req, res) => {
         const { data } = await axios(`${tmdb.API_ROOT}movie/${movieId}?api_key=${tmdb.API_KEY}`)
         return res.json(data)
     } catch (error) {
-        console.error(error)
+        console.error(error.message)
         return res.status(503).send({ error: error.message })
     }
 })
