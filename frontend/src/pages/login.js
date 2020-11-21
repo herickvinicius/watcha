@@ -24,9 +24,19 @@ const Login = () => {
     }
 
     try {
-      const { token } = await APIService.login(email, password);
+      const { token, user } = await APIService.login(email, password);
       localStorage.setItem("token", token);
+      localStorage.setItem("userid", user._id);
+
       setTimeout(() => history.push("/"), 1500);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const handleRegister = () => {
+    try {
+      setTimeout(() => history.push("/register"), 1500);
     } catch (error) {
       console.error(error.message);
     }
@@ -82,6 +92,16 @@ const Login = () => {
               onClick={handleSubmit}
             >
               Fazer login
+            </Button>
+            <Button
+              type="register"
+              fullWidth
+              disableElevation
+              variant="contained"
+              color="primary"
+              onClick={handleRegister}
+            >
+              Fazer cadastro
             </Button>
           </form>
         </Grid>

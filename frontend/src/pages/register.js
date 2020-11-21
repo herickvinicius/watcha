@@ -8,17 +8,18 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router";
 import APIService from "../utils/apiService";
+import { DatePicker } from "@material-ui/pickers";
 
 const Register = () => {
   const [name, setName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const history = useHistory();
 
   const handleNameChange = (event) => setName(event.target.value);
-  const handleDateOfBirthChange = (event) => setDateOfBirth(event.target.value);
+  //const handleDateOfBirthChange = (event) => setDateOfBirth(event.target.value);
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
 
@@ -29,13 +30,14 @@ const Register = () => {
     }
 
     try {
-      const { token } = await APIService.register(
+      const { token, user } = await APIService.register(
         email,
         password,
         name,
         dateOfBirth
       );
       localStorage.setItem("token", token);
+      localStorage.setItem("userid", user._id);
       setTimeout(() => history.push("/"), 1500);
     } catch (error) {
       console.error(error.message);
@@ -70,16 +72,17 @@ const Register = () => {
                 onChange={handleNameChange}
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                margin="normal"
-                required
-                autoComplete="Data de Nascimento"
-                placeholder="Data de Nascimento"
+            <Grid item xs={12} style={{ marginTop: 8 }}>
+              <DatePicker
                 fullWidth
-                variant="outlined"
+                required
+                disableFuture
+                inputVariant="outlined"
+                openTo="year"
+                format="dd/MM/yyyy"
+                placeholder="Data de nascimento"
                 value={dateOfBirth}
-                onChange={handleDateOfBirthChange}
+                onChange={setDateOfBirth}
               />
             </Grid>
             <Grid item xs={12}>

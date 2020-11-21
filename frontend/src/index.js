@@ -8,15 +8,18 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Register from "./pages/register";
 
-//import App from './App';
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import LuxonUtils from "@date-io/luxon";
 
 const history = createBrowserHistory();
 
 ReactDOM.render(
-  <Router history={history}>
-    <Route path="/" component={Home} exact={true} />
-    <Route path="/login" component={Login} exact={true} />
-    <Route path="/register" component={Register} exact={true} />
-  </Router>,
+  <MuiPickersUtilsProvider utils={LuxonUtils}>
+    <Router history={history}>
+      <Route path="/" component={Home} exact={true} />
+      <Route path="/login" component={Login} exact={true} />
+      <Route path="/register" component={Register} exact={true} />
+    </Router>
+  </MuiPickersUtilsProvider>,
   document.getElementById("root")
 );

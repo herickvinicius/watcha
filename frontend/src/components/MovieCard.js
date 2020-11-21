@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
   CardActionArea,
@@ -11,24 +11,20 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router";
 // Importar icones pra usar nos cards
-// Importar e implementar funções addToWatchlist e fetchWatchlist
+// Importar e implementar função addToWatchlist
 
 const useStyles = makeStyles({
-    root: {
-        maxWidth: 345,
-    },
-    media: {
-        height: 140,
-    },
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
 });
 
-export function MovieCard({
-    movie: { Cover, Title, Type, Year, MovieId } = {},
-    isAddedToWatch: added = false,
-}) {
-    const classes = useStyles();
-    const history = useHistory();
-    const [isAddedToWatch, setIsAddedToWatch] = useState(saved);
+const MovieCard = ({ movie }) => {
+  const classes = useStyles();
+  return <Card className={classes}>{movie.title}</Card>;
+};
 
-    const handle
-}
+export default MovieCard;
