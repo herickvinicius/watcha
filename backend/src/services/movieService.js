@@ -3,7 +3,7 @@ const axios = require("axios");
 const authMiddleware = require("../middlewares/auth");
 const tmdb = require("../config/tmdb.json");
 const Profile = require("../models/profile");
-const { watch } = require("../models/profile");
+//const { watch } = require("../models/profile");
 
 const router = express.Router();
 
@@ -35,9 +35,30 @@ router.get("/getWatchlist", async (req, res) => {
   }
 });
 
-// router.post("/setWatchlist", async (req, res) => {
+router.post("/setWatchlist", async (req, res) => {
+  const movie = req.body;
+  //console.log(typeof movie);
+  const { userId } = req.query;
+  //console.log(userId);
 
-// })
+  let profile = {};
+  try {
+    profile = await Profile.findOne({ userId });
+    movie = await Profile.update(profile.watchlist);
+
+    const temp = JSON.stringify(movie);
+    console.log(temp);
+    profile.watchlist[0] = movie;
+    console.log(profile.watchlist[0]);
+
+    // FALTA GRAVAR NO BANCO
+
+    return res.status(200).send({ message: "OK" });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(400).send({ error: error.message });
+  }
+});
 
 router.get("/search", async (req, res) => {
   const { terms } = req.query;

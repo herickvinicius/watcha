@@ -12,7 +12,7 @@ const ProfileSchema = new mongoose.Schema({
   },
   watchlist: [
     {
-      type: String,
+      type: Object,
     },
   ],
   //moviesWatched: {},
