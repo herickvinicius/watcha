@@ -22,32 +22,22 @@ router.get("/popular", async (req, res) => {
   }
 });
 
-router.get("/watchlist", async (req, res) => {
+router.get("/getWatchlist", async (req, res) => {
   const { userId } = req.query;
-  console.log(userId);
   try {
     // Busca no banco por perfis que pertençam ao user logado
-    const profiles = await Profile.find({ userId });
-    console.log(profiles);
+    const profile = await Profile.findOne({ userId });
 
-    // movies recebe o vetor de favoritos
-    const { watchlist } = profiles.watchlist;
-    console.log(typeof watchlist);
+    // A partir daqui, o vetor de watchlist pode ser acessada por profile.watchlist
+    return res.json(profile.watchlist);
   } catch (error) {
     console.error({ error: error.message });
   }
 });
 
-//   //   try {
-//   //     const { data } = await axios(
-//   //       `${tmdb.API_ROOT}movie/popular?api_key=${tmdb.API_KEY}&page=${page}`
-//   //     );
-//   //     return res.json(data);
-//   //   } catch (error) {
-//   //     console.error(error.message);
-//   //     return res.status(503).send({ error: error.message });
-//   //   }
-// });
+// router.post("/setWatchlist", async (req, res) => {
+
+// })
 
 router.get("/search", async (req, res) => {
   const { terms } = req.query;
